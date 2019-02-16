@@ -1,6 +1,6 @@
 package target;
 
-public class CommonPoint {
+public class Point {
    int x, y;
 
    public void move(Integer dx, Integer dy) {
@@ -12,4 +12,7 @@ public class CommonPoint {
       x += dx;
       y += dy;
    }
+   
+   public int getX() { return this.x; }
+   public int getY() { return this.y; }
 }

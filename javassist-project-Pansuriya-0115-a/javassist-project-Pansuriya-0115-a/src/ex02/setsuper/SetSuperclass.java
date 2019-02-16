@@ -16,59 +16,76 @@ public class SetSuperclass {
    static String WORK_DIR = System.getProperty("user.dir");
    // static String CLASSPATH_DIR = WORK_DIR + _S + "classfiles";
    static String OUTPUT_DIR = WORK_DIR + _S + "output";
-
+   static String comm1,comm2;
+   
    public static void main(String[] args) {
 	   int j=0;
-	   if(args.length < 3)
+	   try 
 		{
-			for(int i=0; i<args.length; i++)
-			{
-				System.out.println("[DBG] ARG " + i + ":" +args[i]);
-				if(args[i].startsWith("Common"))
-				{
-					j=j+1;
-				}
-				else 
-					continue;	
-			}
-			try 
-			{
-				while (true) {
-					UtilMenu.showMenuOptions();
-					switch (UtilMenu.getOption()) {
-					case 1:
-						System.out.println("Enter two class names:");
-						String[] clazNames = UtilMenu.getArguments();
-						if(j==2)
+			while (true) {
+				UtilMenu.showMenuOptions();
+				switch (UtilMenu.getOption()) {
+				case 1:
+					System.out.println("Enter two class names:");
+					String[] clazNames = UtilMenu.getArguments();
+					if(clazNames.length < 3)
+					{
+						for(int i=0; i<clazNames.length; i++)
 						{
-							if(args[0].length() > args[1].length())
+							System.out.println("[DBG] ARG " + i + ":" +clazNames[i]);
+							if(clazNames[i].startsWith("Common"))
 							{
-								setSuperClass(clazNames[1], clazNames[0]);
-								break;
+								j=j+1;
 							}
-							else
-							{
-								setSuperClass(clazNames[0], clazNames[1]);
-								break;
-							}
+							else 
+								continue;	
 						}
-						else
+					if(j==2)
+					{
+						if(clazNames[0].length() > clazNames[1].length())
 						{
 							setSuperClass(clazNames[1], clazNames[0]);
 							break;
 						}
-						
-					default:
-						break;
+						else
+						{
+							setSuperClass(clazNames[0], clazNames[1]);
+							break;
+						}
 					}
-				}
+					else if(j==1)
+					{
+						System.out.println("start");
+						for(int i=0; i<clazNames.length; i++)
+						{
+							if(clazNames[i].startsWith("Common")) 
+							{
+								comm1=clazNames[i];
+							}	
+							else
+							{
+								comm2=clazNames[i];
+								continue;
+							}
+						}	
+						setSuperClass(comm2, comm1);
+						System.out.println("yeyy");
+					}
+					else
+					{
+						setSuperClass(clazNames[1], clazNames[0]);
+						System.out.println("yeyy222");
+					}
+					}
+				default:
+					break;
+					}}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-			else
-				return;
-   }
+ 
 
    static void setSuperClass(String clazSub, String clazSuper) {
       try {

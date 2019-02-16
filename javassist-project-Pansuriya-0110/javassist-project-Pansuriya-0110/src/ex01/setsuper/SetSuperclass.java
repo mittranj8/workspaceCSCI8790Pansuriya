@@ -14,10 +14,11 @@ public class SetSuperclass {
    static String _S = File.separator;
    static String workDir = System.getProperty("user.dir");
    static String outputDir = workDir + _S + "output";
+   static String sup,sub;
 
    public static void main(String[] args) {
 	   	int j=0;
-	   	String sup,sub;
+	   	
 		if(args.length < 3)
 		{
 			for(int i=0; i<args.length; i++)
@@ -57,6 +58,23 @@ public class SetSuperclass {
 						System.out.println("[DBG] write output to: " + outputDir);
 					}		
 				}
+				else if(j==1)
+				{
+					for(int i=0; i<args.length; i++)
+					{
+						if(args[i].startsWith("Common"))
+							sup=args[i];
+						else
+						{
+							sub=args[i];
+							continue;
+						}
+					}
+					CtClass cc = pool.get("target."+sub);
+					setSuperclass(cc, "target."+sup, pool);
+					cc.writeFile(outputDir);
+					System.out.println("[DBG] write output to: " + outputDir);
+				}
 				else
 				{
 					sup = args[0];
@@ -64,7 +82,7 @@ public class SetSuperclass {
 					CtClass cc = pool.get("target."+sub);
 					setSuperclass(cc, "target."+sup, pool);
 					cc.writeFile(outputDir);
-					System.out.println("[DBG] write output to: " + outputDir);
+					System.out.println("[DBG] write output to: " + outputDir);	
 				}
 
 			} 
